@@ -1,0 +1,15 @@
+{% extends 'base/index.html' %}
+{% load staticfiles %}
+
+{% block extracss %}
+
+{% endblock %}
+
+{% block content %}
+
+<divc class ="container">
+  <a href="{% url 'productos:nuevoRegistro' %}" class="btn mb-3">Nuevo registro</a>
+
+{% include 'informacion/infoproductos.html' %}
+</divc>
+{% endblock %}

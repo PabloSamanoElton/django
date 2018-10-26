@@ -1,0 +1,35 @@
+{% extends 'base/index.html' %}
+{% load staticfiles %}
+
+{% block extracss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+{%  endblock%}
+
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre Categoria</th>
+      <th scope="col">Fecha Creación</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+	{% for categoria in Categorias %}
+      <td>{{categoria.NombreCat}}</td>
+      <td>{{categoria.FechaCreacion}}</td>
+      <td>
+                  <a href="{% url 'productos:editarRegistroC' categoria.id %}" class="btn mb-3">Editar</a>
+                  <a href="{% url 'productos:prebuntaC' categoria.id %}" class="btn mb-3">Borrar</a>
+      </td>
+    </tr>
+    	{% empty %}
+    <tr>
+    	<td>No hay Categoria</td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

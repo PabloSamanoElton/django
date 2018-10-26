@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!--Estilo para TODAS las páginas que hereden de esta plantilla-->
+	{% block extracss %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+	<!-- Bloque para incrustar otros css diferentes por página -->
+	{% endblock %}
+
+	<title>{%block title %}Proyecto{% endblock %}</title>
+</head>
+<body>
+<header>
+{%block header %}
+
+<a href="{% url 'productos:home' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Tienda</a>
+
+{% endblock %}
+</header>
+<div>
+{%block content %}
+Contenido de la página
+{% endblock %}
+</div>
+
+<footer>
+{%block footer %}
+
+{% endblock %}
+</footer>
+	<scripts type="text/javascripts" src="{% static 'js/bootstrap.js' %}"></script>
+	<scripts type="text/javascripts" src="{% static 'jquery-3.3.1.min.js' %}"></script>	
+</body>
+</html>
