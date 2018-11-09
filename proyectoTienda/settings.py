@@ -25,7 +25,7 @@ SECRET_KEY = 'z8anl0y3v8(&$p%^@#gv%&l&(!7*p7g1&gh2wg3_!)$^1wipyn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pablose.pythonanywhere.com']
 
 
 # Application definition
@@ -78,10 +78,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': 'proyecto_tienda',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'pablose$proyecto_tienda',
+        'USER': 'pablose',
+        'PASSWORD': 'ruhoselacome',
+        'HOST': 'pablose.mysql.pythonanywhere-services.com',
         'PORT': '3306', 
     }
 }
