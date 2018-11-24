@@ -2,9 +2,7 @@ from django import forms
 from apps.productos.models import Producto, Categoria
 
 class ProductoForm(forms.ModelForm):
-
 	class Meta:
-
 		model = Producto
 
 		fields = [
@@ -35,9 +33,7 @@ class ProductoForm(forms.ModelForm):
 		}
 
 class CategoriaForm(forms.ModelForm):
-
 	class Meta:
-
 		model = Categoria
 
 		fields = [
@@ -53,4 +49,26 @@ class CategoriaForm(forms.ModelForm):
 		widgets = {
 			'NombreCat' : forms.TextInput(attrs ={'class':'form-control'}),
 			'FechaCreacion' : forms.TextInput(attrs ={'class':'form-control'}),
+		}
+
+class VentasForm(forms.ModelForm):
+	class Meta:
+		model = Producto
+
+		fields = [
+			'Nombre',
+			'Costo',
+			'NumExistencia',
+		]
+
+		labels = {
+			'Nombre' : 'Nombre',
+			'Costo' : 'Costo',
+			'NumExistencia' : 'Cantidad',
+		}
+
+		widgets = {
+			'Nombre' : forms.TextInput(attrs ={'class':'form-control', 'readonly':'readonly'}),
+			'Costo' : forms.TextInput(attrs ={'class':'form-control', 'readonly':'readonly'}),
+			'NumExistencia' : forms.NumberInput(attrs ={'class':'form-control', 'min':'0'}),
 		}

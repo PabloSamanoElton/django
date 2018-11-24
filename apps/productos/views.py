@@ -2,19 +2,28 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView
 from apps.productos.models import Producto, Categoria
-from apps.productos.forms import ProductoForm, CategoriaForm
+from apps.productos.forms import ProductoForm, CategoriaForm, VentasForm
+
+def prueba(request):
+	return HttpResponse("le")
+
+def home(request):
+	return render(request, 'home/index.html')
 
 def index(request):
 	return HttpResponse("Esta es la respuesta")
-
-def plantilla(request):
-	return render(request, 'productos/index.html')
 
 def listado(request):
 	contexto = {
 		'productos': Producto.objects.all()
 	}
 	return render(request, 'productos/infoproductos.html', contexto)
+
+def comprar(request):
+	contexto = {
+		'productos': Producto.objects.all()
+	}
+	return render(request, 'productos/infoVentas.html', contexto)
 
 def listadoC(request):
 	contexto = {
@@ -41,9 +50,9 @@ def nuevoRegistro(request):
 def editarRegistro(request, idProducto):
 	producto = Producto.objects.get(id = idProducto)
 	if (request.method == 'GET'):
-		form = ProductoForm(instance = Producto)
+		form = ProductoForm(instance = producto)
 	else:
-		form = ProductoForm(request.POST, instance=Producto)
+		form = ProductoForm(request.POST, instance=producto)
 		if form.is_valid():
 			form.save()
 		return redirect('productos:infoproductos')
@@ -52,24 +61,48 @@ def editarRegistro(request, idProducto):
 def eliminarRegistro(request, idProducto):
 	producto = Producto.objects.get(id = idProducto)
 	if (request.method == 'GET'):
-		form = ProductoForm(instance = Producto)
+		form = ProductoForm(instance = producto)
 	else:
-		form = ProductoForm(request.POST, instance=Producto)
+		form = ProductoForm(request.POST, instance=producto)
 		if form.is_valid():
 			producto.delete()
 		return redirect('productos:infoproductos')
-	return render(request, 'productos/prebunta.html'), {'form' : form}
-
+	return render(request, 'productos/prebunta.html', {'form' : form})
 
 class ViewProducto(ListView):
 	model = Producto
 	queryset = Producto.objects.all()
 	templeate_name = 'productos/infoproductos.html'
 
-def home(request):
-	return render(request, 'home/index.html')
+class Ventas(ListView):
+	model = Producto
+	queryset = Producto.objects.all()
+	templeate_name = 'productos/pagVentas.html'
 
-def prebunta(request):
+def ventaFormulario(request,idProducto):
+	producto = Producto.objects.get(id = idProducto)
+	cant = producto.NumExistencia
+	producto.NumExistencia = 0
+	if (request.method == "GET"):
+		form = VentasForm(instance = producto)
+	else:
+		form = VentasForm(request.POST, instance=producto)
+		if form.is_valid():
+			Costo = producto.NumExistencia
+			producto.NumExistencia = cant - producto.NumExistencia
+			if producto.NumExistencia < 0:
+				return redirect('productos:ErrorCantidad')
+			form.save()
+		Costo = float(Costo) * producto.Costo
+		contexto = {'Costo':Costo}
+		return render(request, 'productos/pago.html', contexto)
+		return redirect('productos:uarida')
+	return render(request, 'productos/ventaFormulario.html', {'form' : form})
+
+def ErrorCantidad(request):
+	return render(request, 'productos/problemo.html')
+
+def prebunta(request, idProducto):
  	return render(request, 'productos/prebunta.html')
 
 def nuevoRegistroC(request):
@@ -77,32 +110,32 @@ def nuevoRegistroC(request):
 		form = CategoriaForm(request.POST)
 		if form.is_valid():
 			form.save()
-		return redirect('productosCateogira:infocategorias')
+		return redirect('productosCategoria:infocategorias')
 	else:
 		form = CategoriaForm()
-	return render(request, 'productosCateogira/categoriaFormulario.html', {'form' : form})
+	return render(request, 'productosCategoria/categoriaFormulario.html', {'form' : form})
 
 def editarRegistroC(request, idCategoria):
 	categoria = Categoria.objects.get(id = idCategoria)
 	if (request.method == 'GET'):
-		form = CategoriaForm(instance = Categoria)
+		form = CategoriaForm(instance = categoria)
 	else:
-		form = CategoriaForm(request.POST, instance=Categoria)
+		form = CategoriaForm(request.POST, instance = categoria)
 		if form.is_valid():
 			form.save()
 		return redirect('productos:infocategorias')
-	return render(request, 'productosCateogira/categoriaFormulario.html', {'form' : form})
+	return render(request, 'productosCategoria/categoriaFormulario.html', {'form' : form})
 
 def eliminarRegistroC(request, idCategoria):
 	categoria = Categoria.objects.get(id = idCategoria)
 	if (request.method == 'GET'):
-		form = CategoriaForm(instance = Categoria)
+		form = CategoriaForm(instance = categoria)
 	else:
-		form = CategoriaForm(request.POST, instance=Categoria)
+		form = CategoriaForm(request.POST, instance = categoria)
 		if form.is_valid():
 			categoria.delete()
 		return redirect('productos:infocategorias')
-	return render(request, 'productosCateogira/prebuntaC.html', {'form' : form})
+	return render(request, 'productosCategoria/prebuntaC.html', {'form' : form})
 
-def prebuntaC(request):
-	return render(request, 'productosCateogira/prebuntaC.html')
+def prebuntaC(request, idCategoria):
+	return render(request, 'productosCategoria/prebuntaC.html')

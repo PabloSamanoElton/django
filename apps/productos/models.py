@@ -14,3 +14,6 @@ class Producto(models.Model):
 	Disponible = models.BooleanField(default = 0)
 	NumExistencia = models.IntegerField(default = 1)
 	Categoria = models.ForeignKey(Categoria, null=True, blank = True, on_delete = models.CASCADE)
+	# wtf is this
+	def __str__(self):
+		return '{}'.format(self.id)

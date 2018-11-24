@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block extracss %}
-
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -14,8 +14,9 @@
 			<form method="post">
 				{% csrf_token %}
 				{{ form.as_p }}
-				<button type="submit" class="btn btn-danger">ELIMINAR</button>
-				<a type="submit" class="btn btn-warning" href="{% url 'productosCategoria:infocategorias' %}" class="btn mb-3">CANCELAR</a>
+
+				<button type="submit" class="btn btn-danger btn-lg btn-block">ELIMINAR</button>
+				<a class="btn btn-warning btn-lg btn-block" href="{% url 'productos:infocategorias' %}" class="btn mb-3">CANCELAR</a>
 			</form>
 		</div>
 	</div>

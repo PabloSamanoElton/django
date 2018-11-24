@@ -3,33 +3,50 @@
 <html>
 <head>
 	<!--Estilo para TODAS las páginas que hereden de esta plantilla-->
-	{% block extracss %}
+	{% include 'base/nav.html' %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 	<!-- Bloque para incrustar otros css diferentes por página -->
+	<script type="text/javascript" src="{% static 'js/funciones.js' %}"></script>
+	{% block extracss %}
+	
 	{% endblock %}
 
 	<title>{%block title %}Proyecto{% endblock %}</title>
 </head>
 <body>
-<header>
-{%block header %}
+	<header>
+		{%block header %}
 
-<a href="{% url 'productos:home' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Tienda</a>
+		<a href="{% url 'productos:home' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Tienda</a>
 
-{% endblock %}
-</header>
-<div>
-{%block content %}
-Contenido de la página
-{% endblock %}
-</div>
+		{% endblock %}
+	</header>
+	<div>
+		{%block content %}
+		Contenido de la página
+		{% endblock %}
+	</div>
 
-<footer>
-{%block footer %}
+	<footer>
+		{%block footer %}
 
-{% endblock %}
-</footer>
+		{% endblock %}
+	</footer>
 	<scripts type="text/javascripts" src="{% static 'js/bootstrap.js' %}"></script>
-	<scripts type="text/javascripts" src="{% static 'jquery-3.3.1.min.js' %}"></script>	
-</body>
-</html>
+		<scripts type="text/javascripts" src="{% static 'jquery-3.3.1.min.js' %}"></script>	
+		</body>
+		<!-- <div class="form-group row">
+			<label for="example-text-input" class="col-2 col-form-label">Ingresa tu nombre</label>
+			<div class="col-10">
+				<input class="form-control" type="text" value="" id="Nombre">
+			</div>
+		</div>
+
+		<td><button id="boton" type="button" onClick=OK() class="btn btn-success">OK</button></td>
+
+		<script type="text/javascript">
+			function OK(){
+				alert(document.getElementById("Nombre").value);
+			}
+		</script> -->
+		</html>

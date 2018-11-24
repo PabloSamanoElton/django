@@ -1,8 +1,12 @@
 {% extends 'base/index.html' %}
 {% load staticfiles %}
 
-{% block extracss %}
+{% block title %}
+	Registro de Producto
+{% endblock %}
 
+{% block extracss %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -10,11 +14,12 @@
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col-8">
-			<h1>Registro de nuevo Producto</h1>
+			<h1>Modificación de Producto</h1>
 			<form method="post">
 				{% csrf_token %}
 				{{ form.as_p }}
-				<button type="submit" class="btn btn-success">Enviar</button>
+				<button type="submit" class="btn btn-success btn-lg btn-block">Enviar</button>
+				<a type="submit" class="btn btn-warning btn-lg btn-block" href="{% url 'productos:infoproductos' %}" class="btn mb-3">Cancelar</a>
 			</form>
 		</div>
 	</div>

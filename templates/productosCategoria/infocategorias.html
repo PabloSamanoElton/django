@@ -3,7 +3,11 @@
 
 {% block extracss %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-{%  endblock%}
+{% endblock %}
+
+{% block header %}
+<a href="home" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Tienda</a>
+{% endblock %}
 
 {% block content %}
 <table class="table">
@@ -15,16 +19,17 @@
   </thead>
   <tbody>
     <tr>
+      {% for categoria in Categorias %}
       <td>{{categoria.NombreCat}}</td>
       <td>{{categoria.FechaCreacion}}</td>
       <td>
-                  <a href="{% url 'productosCategoria:editarRegistroC' categoria.id %}" class="btn mb-3">Editar</a>
-                  <a href="{% url 'productosCategoria:prebuntaC' categoria.id %}" class="btn mb-3">Borrar</a>
+        <a href="{% url 'productos:editarRegistroC' categoria.id %}" class="btn mb-3 btn-info">Editar</a>
+        <a href="{% url 'productos:eliminarRegistroC' categoria.id %}" class="btn mb-3 btn-danger">Borrar</a>
       </td>
     </tr>
-    	{% empty %}
+    {% empty %}
     <tr>
-    	<td>No hay Categoria</td>
+      <td>No hay Categoria</td>
 
     </tr>
     {% endfor %}

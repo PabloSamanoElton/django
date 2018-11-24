@@ -1,0 +1,26 @@
+{% extends 'base/index.html' %}
+{% load staticfiles %}
+
+{% block title %}
+	Registro
+{% endblock %}
+
+{% block extracss %}
+
+{% endblock %}
+
+{% block content %}
+<divc class="container">
+	<div class = "row justify-content-md-center">
+		<div class = "col-8">
+			<h1>Comprar</h1>
+			<form method="post">
+				{% csrf_token %}
+				{{ form.as_p}}
+				<button type="submit" class="btn btn-success btn-lg btn-block">Comprar</button>
+				<a class="btn btn-warning btn-lg btn-block" href="{% url 'productos:comprar' %}" class="btn mb-3" >Cancelar</a>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

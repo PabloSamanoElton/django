@@ -3,21 +3,22 @@
 
 {% block extracss %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-
 {% endblock %}
+
 {% block header %}
 <a href="home" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Tienda</a>
 {% endblock %}
+
 {% block content %}
 <table class="table">
   <thead>
     <tr>
       <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
       <th scope="col">Categoria</th>
       <th scope="col">Descripcion</th>
       <th scope="col">NumExistencia</th>
       <th scope="col">Costo</th>
-      <th scope="col">Disponible</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -25,14 +26,14 @@
     <tr>
       {% for producto in productos %}
       <th scope="row">{{producto.id}}</th>
+      <td>{{producto.Nombre}}</td>
       <td>{{producto.Categoria}}</td>
       <td>{{producto.Descripcion}}</td>
       <td>{{producto.NumExistencia}}</td>
       <td>{{producto.Costo}}</td>
-      <td>{{producto.Disponible}}</td>
       <td>
-          <a href="{% url 'productos:editarRegistro' producto.id %}" class="btn mb-3">Editar</a>
-          <a href="{% url 'productos:prebunta' producto.id %}" class="btn mb-3">Borrar</a>
+        <a href="{% url 'productos:editarRegistro' producto.id %}" class="btn mb-3 btn-info">Editar</a>
+        <a href="{% url 'productos:eliminarRegistro' producto.id %}" class="btn mb-3 btn-danger">Borrar</a>
       </td>
     </tr>
     {% empty %}

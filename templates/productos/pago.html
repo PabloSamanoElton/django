@@ -1,0 +1,19 @@
+
+{% extends 'base/index.html' %}
+
+{% block title %}
+Pago
+{% endblock %}
+
+{% block content %}
+
+<ol>
+		<h3 class="text-center">Total : ${{Costo}}</h3>
+		<a href="{% url 'productos:comprar' %}" class="btn mb-3 btn-primary btn-lg btn-block">
+					Regresar a la Tienda
+				</a>
+</ol>
+
+
+{% endblock %}
+
